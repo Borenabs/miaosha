@@ -1,4 +1,4 @@
-package com.lan.miaosha.redis;
+package com.lan.miaosha.redis.key.base;
 
 public abstract class BasePrefix implements KeyPrefix{
 

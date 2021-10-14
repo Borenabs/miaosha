@@ -2,7 +2,7 @@ package com.lan.miaosha.controller;
 
 import com.lan.miaosha.redis.RedisService;
 import com.lan.miaosha.domain.Test;
-import com.lan.miaosha.redis.UserKey;
+import com.lan.miaosha.redis.key.UserKey;
 import com.lan.miaosha.result.CodeMsg;
 import com.lan.miaosha.result.Result;
 import com.lan.miaosha.service.TestService;

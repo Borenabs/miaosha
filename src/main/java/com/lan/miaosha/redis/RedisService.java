@@ -1,7 +1,7 @@
 package com.lan.miaosha.redis;
 
 import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.databind.ser.Serializers;
+import com.lan.miaosha.redis.key.base.KeyPrefix;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
