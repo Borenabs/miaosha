@@ -20,4 +20,5 @@ public class TestService {
     public int insertTest(Test test){
        return testMapper.insert(test);
     }
+
 }

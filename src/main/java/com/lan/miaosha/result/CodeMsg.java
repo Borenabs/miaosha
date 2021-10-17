@@ -16,8 +16,8 @@ public class CodeMsg {
     static  final String DEFAULT_ERROR_MSG = "Server Error";
 
     //Default Code;
-    static CodeMsg SUCCESS = new CodeMsg(SUCCESS_CODE , SUCCESS_MSG);
-    static CodeMsg DEFAULT_ERROR = new CodeMsg(DEFAULT_ERROR_CODE , DEFAULT_ERROR_MSG);
+    public static CodeMsg SUCCESS = new CodeMsg(SUCCESS_CODE , SUCCESS_MSG);
+    public static CodeMsg DEFAULT_ERROR = new CodeMsg(DEFAULT_ERROR_CODE , DEFAULT_ERROR_MSG);
 
     //special Code;
 
