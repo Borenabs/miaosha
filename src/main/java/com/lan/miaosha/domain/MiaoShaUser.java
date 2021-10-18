@@ -5,7 +5,6 @@ import java.util.Date;
 
 @Data
 public class MiaoShaUser {
-
     private Long id;
     private String nickName;
     private String password;
