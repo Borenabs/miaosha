@@ -36,6 +36,9 @@ public class MD5Util {
     }
 
     public static void main(String[] args) {
+        //var str = inputPass + salt.substring(0,3);
+        System.out.println(inputPassFormPass("123456"));
+        System.out.println(formPassToDBPass("6e913d784b0a8c44979a628a41919585" , "YGNNBPKN"));
     }
 
 }
