@@ -1,6 +1,6 @@
 package com.lan.miaosha.mapper;
 
-import com.lan.miaosha.domain.MiaoShaUser;
+import com.lan.miaosha.domain.MiaoshaUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MiaoshaUserMapper {
 
-    MiaoShaUser selectById(Long id);
+    MiaoshaUser selectById(Long id);
 
 }
