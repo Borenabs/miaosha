@@ -63,7 +63,7 @@ public class MiaoshaUserService {
     private void addCookie(HttpServletResponse response , MiaoshaUser miaoshaUser){
         //登录成功之后 ， 生成一个Cookie
         String token = UUIdUtil.uuid();
-        //将session存到redis中
+        //将token存到redis中
         redisService.set(MiaoshaUserKey.token , token , miaoshaUser);
 
         Cookie cookie = new Cookie(COOKIE_NAME_TOKEN , token);
