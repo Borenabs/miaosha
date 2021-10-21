@@ -1,5 +1,6 @@
 package com.lan.miaosha.service;
 
+import com.alibaba.fastjson.serializer.AtomicCodec;
 import com.lan.miaosha.domain.MiaoshaUser;
 import com.lan.miaosha.exception.GlobalException;
 import com.lan.miaosha.mapper.MiaoshaUserMapper;
@@ -34,7 +35,7 @@ public class MiaoshaUserService {
         //延长session有效期
         MiaoshaUser miaoshaUser = redisService.get(MiaoshaUserKey.token , token , MiaoshaUser.class);
         if(miaoshaUser != null){
-            addCookie(response , miaoshaUser);
+            addCookie(response , miaoshaUser , token);
         }
         return miaoshaUser;
     }
@@ -56,13 +57,13 @@ public class MiaoshaUserService {
         if (!MD5Util.formPassToDBPass(password , miaoshaUser.getSalt()).equals(miaoshaUser.getPassword())){
             throw new GlobalException(CodeMsg.PASSWORD_ERROR);
         }
-        addCookie(response , miaoshaUser);
+        //登录成功之后 ， 生成一个Cookie
+        String token = UUIdUtil.uuid();
+        addCookie(response , miaoshaUser , token);
         return true;
     }
 
-    private void addCookie(HttpServletResponse response , MiaoshaUser miaoshaUser){
-        //登录成功之后 ， 生成一个Cookie
-        String token = UUIdUtil.uuid();
+    private void addCookie(HttpServletResponse response , MiaoshaUser miaoshaUser , String token){
         //将token存到redis中
         redisService.set(MiaoshaUserKey.token , token , miaoshaUser);
 
