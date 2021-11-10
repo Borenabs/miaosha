@@ -22,4 +22,22 @@
         from miaosha_user where id = #{id}
     </select>
 
+    <update id="update" parameterType="com.lan.miaosha.domain.MiaoshaUser">
+        update miaosha_user
+        <set>
+            <if test="nickName != null">
+                nickName = #{nickName , jdbcType = VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password , jdbcType="VARCHAR"},
+            </if>
+            <if test="salt != null">
+                salt = #{salt , jdbcType="VARCHAR"},
+            </if>
+            <if test="head != null">
+                head = #{head , jdbcType="VARCHAR"},
+            </if>
+        </set>
+        where id = #{id , jdbcType = VARCHAR}
+    </update>
 </mapper>

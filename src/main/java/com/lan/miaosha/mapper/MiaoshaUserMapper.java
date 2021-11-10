@@ -10,4 +10,6 @@ public interface MiaoshaUserMapper {
 
     MiaoshaUser selectById(Long id);
 
+    boolean update(MiaoshaUser miaoshaUser);
+
 }

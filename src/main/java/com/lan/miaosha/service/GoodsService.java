@@ -21,9 +21,9 @@ public class GoodsService {
         return goodsMapper.getGoodsVoByGoodsId(goodsId);
     }
 
-    public void reduceStock(GoodsVo goods) {
+    public boolean reduceStock(GoodsVo goods) {
         MiaoshaGoods g = new MiaoshaGoods();
         g.setGoodsId(goods.getId());
-        goodsMapper.reduceStock(g);
+        return goodsMapper.reduceStock(g) > 0;
     }
 }

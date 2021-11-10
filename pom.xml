@@ -112,6 +112,11 @@
             <artifactId>hibernate-validator</artifactId>
             <version>6.1.7.Final</version>
         </dependency>
+        <!--rabbitMQ-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

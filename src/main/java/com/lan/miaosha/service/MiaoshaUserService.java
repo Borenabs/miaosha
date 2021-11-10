@@ -40,8 +40,38 @@ public class MiaoshaUserService {
         return miaoshaUser;
     }
 
+    //对象缓存获取对象
     public MiaoshaUser selectById(Long userId){
-        return miaoshaUserMapper.selectById(userId);
+        //从redis取对象
+        MiaoshaUser miaoshaUser = redisService.get(MiaoshaUserKey.getById ,""+userId , MiaoshaUser.class);
+        if(miaoshaUser!=null){
+            return miaoshaUser;
+        }
+        //从DB取
+        miaoshaUser = miaoshaUserMapper.selectById(userId);
+        //存入缓存
+        if(miaoshaUser!=null){
+            redisService.set(MiaoshaUserKey.getById , ""+userId , miaoshaUser);
+        }
+        return miaoshaUser;
+    }
+
+    //对象缓存更新对象
+    public boolean updateMiaoshaUser(String token,Long userId , String formPassWd){
+        //获取对象
+        MiaoshaUser miaoshaUser = selectById(userId);
+        if (miaoshaUser == null) throw new GlobalException(CodeMsg.USER_NOT_FOUND);
+
+        //更新对象
+        MiaoshaUser updateUser = new MiaoshaUser();
+        updateUser.setId(userId);
+        updateUser.setPassword(MD5Util.formPassToDBPass(formPassWd , miaoshaUser.getSalt()));
+        miaoshaUserMapper.update(updateUser);
+
+        //处理缓存
+        redisService.delete(MiaoshaUserKey.getById , ""+userId);
+        redisService.set(MiaoshaUserKey.token , token , updateUser);
+        return true;
     }
 
     public Boolean login(@Valid LoginVO loginVO , HttpServletResponse response){
