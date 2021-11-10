@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MiaoshaController implements InitializingBean {
@@ -42,6 +44,8 @@ public class MiaoshaController implements InitializingBean {
 
     @Autowired
     MQSender sender;
+
+    private Map<Long , Boolean> map = new HashMap<>();
 
     /**
      *
@@ -73,10 +77,13 @@ public class MiaoshaController implements InitializingBean {
     @PostMapping("/miaosha/do_miaosha")
     @ResponseBody
     public Result<Integer> miaosha(Model model, MiaoshaUser miaoshaUser, @RequestParam("goodsId") Long goodsId){
+        if(!map.get(goodsId)) return Result.error(CodeMsg.INVENTORY_SHORTAGE);
         //减库存
         Long inventory = redisService.decr(GoodsKey.goodsInventory, "" + goodsId);
-        if(inventory < 0) return Result.error(CodeMsg.INVENTORY_SHORTAGE);
-
+        if(inventory < 0) {
+            map.put(goodsId , false);
+            return Result.error(CodeMsg.INVENTORY_SHORTAGE);
+        }
         //判断重复秒杀
         MiaoshaOrder miaoshaOrder = orderService.getMiaoshaOrder(miaoshaUser.getId()+"_"+goodsId);
         if(miaoshaOrder!=null) return Result.error(CodeMsg.DUPLICATE_MIAOSHA);
